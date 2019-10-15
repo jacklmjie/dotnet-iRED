@@ -1,0 +1,5 @@
+@model $vmnamespace$.$modelname$ListVM
+
+<wt:searchpanel vm="@Model" reset-btn="true">$fields$
+</wt:searchpanel>
+<wt:grid vm="@Model" url="$searchurl$"/>
