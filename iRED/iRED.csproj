@@ -8,6 +8,10 @@
     <CopyRefAssembliesToPublishDirectory>true</CopyRefAssembliesToPublishDirectory>
 </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile></DocumentationFile>
+  </PropertyGroup>
+
 
 
   <ItemGroup>

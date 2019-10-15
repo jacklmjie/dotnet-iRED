@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Swashbuckle.AspNetCore.Swagger;
 using Microsoft.AspNetCore.Builder;
 using WalkingTec.Mvvm.Core;
+using System;
 
 namespace iRED
 {
@@ -26,6 +27,10 @@ namespace iRED
                     x.AddSwaggerGen(c =>
                     {
                         c.SwaggerDoc("v1", new Info { Title = "My API", Version = "v1" });
+                    });
+                    x.AddHttpClient("wx", c =>
+                    {
+                        c.BaseAddress = new Uri("https://api.weixin.qq.com");
                     });
                 })
                 .Configure(x =>

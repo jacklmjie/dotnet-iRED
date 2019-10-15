@@ -1,8 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using iRED.Model;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using WalkingTec.Mvvm.Core;
 
 namespace iRED.DataAccess
@@ -13,7 +11,7 @@ namespace iRED.DataAccess
              : base(cs, dbtype)
         {
         }
-
+        public DbSet<WeiXinUser> WeiXinUser { get; set; }
     }
 
     /// <summary>

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using WalkingTec.Mvvm.Core.ConfigOptions;
 
 namespace WalkingTec.Mvvm.Core
@@ -301,6 +302,16 @@ namespace WalkingTec.Mvvm.Core
             {
                 _appSettings = value;
             }
+        }
+
+        public string AppSettingsByKey(string key)
+        {
+            var first = AppSettings.FirstOrDefault(x => x.Key == key);
+            if (first == null)
+            {
+                throw new Exception($"{key} is null");
+            }
+            return first.Value;
         }
 
         #endregion
