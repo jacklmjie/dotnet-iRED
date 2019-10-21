@@ -8,10 +8,6 @@
     <CopyRefAssembliesToPublishDirectory>true</CopyRefAssembliesToPublishDirectory>
 </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile></DocumentationFile>
-  </PropertyGroup>
-
 
 
   <ItemGroup>
@@ -29,7 +25,6 @@
     <ProjectReference Include="..\iRED.DataAccess\iRED.DataAccess.csproj" />
     <ProjectReference Include="..\iRED.ViewModel\iRED.ViewModel.csproj" />
     <ProjectReference Include="..\WalkingTec.Mvvm.Mvc.Admin\WalkingTec.Mvvm.Mvc.Admin.csproj" />
-    <ProjectReference Include="..\WalkingTec.Mvvm.Mvc\WalkingTec.Mvvm.Mvc.csproj" />
     <ProjectReference Include="..\WalkingTec.Mvvm.TagHelpers.LayUI\WalkingTec.Mvvm.TagHelpers.LayUI.csproj" />
  </ItemGroup>
 

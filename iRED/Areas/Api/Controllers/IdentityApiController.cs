@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using WalkingTec.Mvvm.Core;
@@ -15,11 +16,18 @@ namespace iRED.Areas.Api.Controllers
         private readonly IHttpClientFactory _clientFactory;
         private string _appID { get; set; }
         private string _appSecret { get; set; }
+
+        private string GetAppSettingValue(string key)
+        {
+            var kV = ConfigInfo.AppSettings.FirstOrDefault(x => x.Key == key);
+            return kV.Value;
+        }
+
         public IdentityApiController(IHttpClientFactory clientFactory)
         {
             _clientFactory = clientFactory;
-            _appID = ConfigInfo.AppSettingsByKey("AppID");
-            _appSecret = ConfigInfo.AppSettingsByKey("AppSecret");
+            _appID = GetAppSettingValue("AppID");
+            _appSecret = GetAppSettingValue("AppSecret");
         }
 
         [ActionDescription("登录")]

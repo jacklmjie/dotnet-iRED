@@ -1,18 +1,21 @@
-﻿using Microsoft.AspNetCore;
+﻿using System.Collections.Generic;
+using System.IO;
+using Microsoft.AspNetCore;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using WalkingTec.Mvvm.Mvc;
-using WalkingTec.Mvvm.TagHelpers.LayUI;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Localization;
 using Swashbuckle.AspNetCore.Swagger;
-using Microsoft.AspNetCore.Builder;
 using WalkingTec.Mvvm.Core;
-using System;
+using WalkingTec.Mvvm.Mvc;
+using WalkingTec.Mvvm.TagHelpers.LayUI;
 
 namespace iRED
 {
     public class Program
     {
+
         public static void Main(string[] args)
         {
             BuildWebHost(args).Run();
@@ -27,10 +30,6 @@ namespace iRED
                     x.AddSwaggerGen(c =>
                     {
                         c.SwaggerDoc("v1", new Info { Title = "My API", Version = "v1" });
-                    });
-                    x.AddHttpClient("wx", c =>
-                    {
-                        c.BaseAddress = new Uri("https://api.weixin.qq.com");
                     });
                 })
                 .Configure(x =>
