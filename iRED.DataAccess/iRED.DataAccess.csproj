@@ -7,5 +7,5 @@
 
   <ItemGroup>
     <ProjectReference Include="..\iRED.Model\iRED.Model.csproj" />
-  </ItemGroup >
+  </ItemGroup>
 </Project>

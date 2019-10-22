@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using iRED.Model;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using System;
 using System.Collections.Generic;
@@ -13,7 +14,7 @@ namespace iRED.DataAccess
              : base(cs, dbtype)
         {
         }
-
+        public DbSet<WxUser> WxUser { get; set; }
     }
 
     /// <summary>

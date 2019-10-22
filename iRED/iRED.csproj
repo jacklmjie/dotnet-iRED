@@ -24,7 +24,7 @@
    <ProjectReference Include="..\iRED.Model\iRED.Model.csproj" />
     <ProjectReference Include="..\iRED.DataAccess\iRED.DataAccess.csproj" />
     <ProjectReference Include="..\iRED.ViewModel\iRED.ViewModel.csproj" />
-    <ProjectReference Include="..\WalkingTec.Mvvm.Mvc.Admin\WalkingTec.Mvvm.Mvc.Admin.csproj" />
+    <ProjectReference Include="..\WalkingTec.Mvvm.Mvc\WalkingTec.Mvvm.Mvc.csproj" />
     <ProjectReference Include="..\WalkingTec.Mvvm.TagHelpers.LayUI\WalkingTec.Mvvm.TagHelpers.LayUI.csproj" />
  </ItemGroup>
 

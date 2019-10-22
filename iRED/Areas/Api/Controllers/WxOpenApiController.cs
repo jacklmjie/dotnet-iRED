@@ -1,10 +1,11 @@
-﻿using iRED.ViewModel.Helpers;
+﻿using iRED.Model;
+using iRED.ViewModel.Helpers;
 using iRED.ViewModel.JsonResult;
 using iRED.ViewModel.JsonResult.Request;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using System.Linq;
 using System.Net.Http;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using WalkingTec.Mvvm.Core;
 using WalkingTec.Mvvm.Mvc;
@@ -18,33 +19,21 @@ namespace iRED.Areas.Api.Controllers
     public class WxOpenApiController : BaseApiController
     {
         private readonly IHttpClientFactory _clientFactory;
-        private string _appID { get; set; }
-        private string _appSecret { get; set; }
-
+        private readonly Configs _configInfo;
         public WxOpenApiController(IHttpClientFactory clientFactory)
         {
             _clientFactory = clientFactory;
-            _appID = GetAppSettingValue("AppID");
-            _appSecret = GetAppSettingValue("AppSecret");
-        }
-
-        private string GetAppSettingValue(string key)
-        {
-            var kV = GlobalServices.GetService<Configs>().AppSettings.FirstOrDefault(x => x.Key == key);
-            if (kV == null)
-            {
-                DoLog($"key[{key}]不存在", ActionLogTypesEnum.Exception);
-                return string.Empty;
-            }
-            return kV.Value;
+            _configInfo = GlobalServices.GetService<Configs>();
         }
 
         [ActionDescription("登录")]
         [HttpPost("OnLogin")]
-        public async Task<IActionResult>OnLogin(WxLoginRequest req)
+        public async Task<IActionResult> OnLogin(WxLoginRequest req)
         {
+            var appId = _configInfo.Wx.AppID;
+            var appSecret = _configInfo.Wx.AppSecret;
             string urlFormat = "/sns/jscode2session?appid={0}&secret={1}&js_code={2}&grant_type={3}";
-            var url = string.Format(urlFormat, _appID, _appSecret, req.code, "authorization_code");
+            var url = string.Format(urlFormat, appId, appSecret, req.code, "authorization_code");
             var request = new HttpRequestMessage(HttpMethod.Get, url);
 
             var client = _clientFactory.CreateClient("wx");
@@ -61,19 +50,37 @@ namespace iRED.Areas.Api.Controllers
             if (res.errcode == 0)
             {
                 var sessionKey = res.session_key;
+                var openId = res.openid;
                 if (!EncryptHelper.CheckSignature(sessionKey, req.rawData, req.signature))
                 {
                     return BadRequest("签名校验失败");
                 }
 
                 var decodedEntity = EncryptHelper.DecodeUserInfoBySessionKey(sessionKey, req.encryptedData, req.iv);
-                if (decodedEntity != null && decodedEntity.CheckWatermark(_appID))
+                if (decodedEntity != null && decodedEntity.CheckWatermark(appId))
                 {
-                    return Ok(res.openid);
+                    return Ok(openId);
                 }
                 return BadRequest("水印验证不通过");
             }
             return BadRequest(res.errcodeName);
+        }
+
+        /// <summary>
+        /// 生成Jwt的Token
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        private string CreateJwtToken(WxUser user)
+        {
+            Claim[] claims =
+            {
+                new Claim(ClaimTypes.NameIdentifier, user.ID.ToString()),
+                new Claim(ClaimTypes.Name, user.NickName)
+            };
+
+            var token = JwtHelper.CreateToken(claims, _configInfo.Jwt);
+            return token;
         }
     }
 }

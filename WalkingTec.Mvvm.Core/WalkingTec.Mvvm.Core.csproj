@@ -5,6 +5,7 @@
     <AssemblyName>WalkingTec.Mvvm.Core</AssemblyName>
     <Title>$(AssemblyName)</Title>
   </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="DotNetCore.NPOI" Version="1.2.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="2.2.4" />
