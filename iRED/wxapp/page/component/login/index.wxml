@@ -1,0 +1,21 @@
+<view class="login-container">
+	<view class="login" wx:if="{{ !logged }}">
+		<view class="app-info">
+			<image class="app-logo" src="http://placekitten.com/64/64" />
+			<text class="app-name">ired爱红色微平台</text>
+		</view>
+		<view class="alert">
+			<view class="alert-title">网页由该小程序开发，请确认授权以下信息</view>
+			<view class="alert-desc">
+				<view class="alert-text">获得你的公开信息（昵称、头像等）</view>
+			</view>
+		</view>
+		<button wx:if="{{canIUse}}" open-type="getUserInfo" class="weui-btn" bindtap="login">确认登录</button>
+    <view wx:else>请升级微信版本</view>
+	</view>
+	<view class="logged" wx:else>
+		<image class="logged-icon" src="../../../image/s7.png"/>
+		<view class="logged-text">近期你已经授权登陆过ired爱红色微平台</view>
+		<view class="logged-text">自动登录中</view>
+	</view>
+</view>

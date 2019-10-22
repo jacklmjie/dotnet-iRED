@@ -30,7 +30,4 @@
             </view>
         </view>
     </view>
-  <view>
-    <button open-type='getUserInfo'>获取授权</button>
-  </view>
 </view>

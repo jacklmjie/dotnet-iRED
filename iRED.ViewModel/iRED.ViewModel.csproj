@@ -7,5 +7,15 @@
 
   <ItemGroup>
     <ProjectReference Include="..\iRED.Model\iRED.Model.csproj" />
-  </ItemGroup >
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <Folder Include="JsonResult\Request\" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <PackageReference Include="Senparc.CO2NET" Version="1.0.102" />
+  </ItemGroup>
 </Project>

@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Net.Http.Headers;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -30,6 +32,11 @@ namespace iRED
                     x.AddSwaggerGen(c =>
                     {
                         c.SwaggerDoc("v1", new Info { Title = "My API", Version = "v1" });
+                    });
+                    x.AddHttpClient("wx", c =>
+                    {
+                        c.BaseAddress = new Uri("https://api.weixin.qq.com");
+                        c.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                     });
                 })
                 .Configure(x =>
