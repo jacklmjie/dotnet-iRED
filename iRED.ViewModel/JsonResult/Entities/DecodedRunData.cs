@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace iRED.ViewModel.Helpers
+namespace iRED.ViewModel.JsonResult.Entities
 {
     /// <summary>
     /// 用户运动步数解密类

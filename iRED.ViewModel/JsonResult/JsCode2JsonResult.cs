@@ -1,4 +1,6 @@
-﻿namespace iRED.ViewModel.JsonResult
+﻿using iRED.ViewModel.JsonResult.Interface;
+
+namespace iRED.ViewModel.JsonResult
 {
     /// <summary>
     /// JsCode2Json接口结果

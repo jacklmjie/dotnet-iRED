@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace iRED.ViewModel.Helpers
+namespace iRED.ViewModel.JsonResult.Entities
 {
     [Serializable]
     public class DecodeEntityBase

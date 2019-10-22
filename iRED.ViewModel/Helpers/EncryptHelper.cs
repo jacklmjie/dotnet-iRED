@@ -2,6 +2,7 @@
 using System.IO;
 using System.Security.Cryptography;
 using System.Text;
+using iRED.ViewModel.JsonResult.Entities;
 using Senparc.CO2NET.Helpers;
 #if NET45
 using System.Web.Script.Serialization;
@@ -128,14 +129,14 @@ namespace iRED.ViewModel.Helpers
         }
 
         /// <summary>
-        /// 解密消息（通过SessionId获取）
+        /// 解密消息（通过SessionKey获取）
         /// </summary>
         /// <param name="sessionId"></param>
         /// <param name="encryptedData"></param>
         /// <param name="iv"></param>
         /// <exception cref="WxOpenException">当SessionId或SessionKey无效时抛出异常</exception>
         /// <returns></returns>
-        public static string DecodeEncryptedDataBySessionId(string sessionKey, string encryptedData, string iv)
+        public static string DecodeEncryptedDataBySessionKey(string sessionKey, string encryptedData, string iv)
         {
             var resultStr = DecodeEncryptedData(sessionKey, encryptedData, iv);
             return resultStr;
@@ -170,20 +171,20 @@ namespace iRED.ViewModel.Helpers
         public static T DecodeEncryptedDataToEntity<T>(string sessionKey, string encryptedData, string iv)
         where T : DecodeEntityBase
         {
-            var jsonStr = DecodeEncryptedDataBySessionId(sessionKey, encryptedData, iv);
+            var jsonStr = DecodeEncryptedDataBySessionKey(sessionKey, encryptedData, iv);
             var entity = SerializerHelper.GetObject<T>(jsonStr);
             return entity;
         }
 
         /// <summary>
-        /// 解密UserInfo消息（通过SessionId获取）
+        /// 解密UserInfo消息（通过SessionKey获取）
         /// </summary>
         /// <param name="sessionKey"></param>
         /// <param name="encryptedData"></param>
         /// <param name="iv"></param>
         /// <exception cref="WxOpenException">当SessionId或SessionKey无效时抛出异常</exception>
         /// <returns></returns>
-        public static DecodedUserInfo DecodeUserInfoBySessionId(string sessionKey, string encryptedData, string iv)
+        public static DecodedUserInfo DecodeUserInfoBySessionKey(string sessionKey, string encryptedData, string iv)
         {
             return DecodeEncryptedDataToEntity<DecodedUserInfo>(sessionKey, encryptedData, iv);
         }

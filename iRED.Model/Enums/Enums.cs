@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace iRED.ViewModel.JsonResult
+﻿namespace iRED.Model.Enums
 {
     /// <summary>
     /// 用户信息中的性别（sex）
@@ -12,6 +8,25 @@ namespace iRED.ViewModel.JsonResult
         未知 = 0,
         男 = 1,
         女 = 2
+    }
+
+    /// <summary>
+    /// 语言
+    /// </summary>
+    public enum Language
+    {
+        /// <summary>
+        /// 英文
+        /// </summary>
+        en,
+        /// <summary>
+        /// 中文简体
+        /// </summary>
+        zh_CN,
+        /// <summary>
+        /// 中文繁体
+        /// </summary>
+        zh_TW
     }
 
     /// <summary>

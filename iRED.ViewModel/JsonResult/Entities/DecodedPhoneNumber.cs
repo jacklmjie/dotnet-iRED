@@ -1,4 +1,4 @@
-﻿namespace iRED.ViewModel.Helpers
+﻿namespace iRED.ViewModel.JsonResult.Entities
 {
     /// <summary>
     /// 用户绑定手机号解密类

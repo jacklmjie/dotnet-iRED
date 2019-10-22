@@ -39,17 +39,21 @@ Page({
         wx.getUserInfo({
             withCredentials: true,
             success: function (res_user) {
-                self.signIn(code,res_user.encryptedData, res_user.iv);
+                self.onLogin(code, res_user);
             }
         });
     },
-    signIn(code, encryptedData, iv) {
+    onLogin(code, res_user) {
+        var self = this;
         wx.request({
-            url: 'http://localhost:50997/api/Identity/SignIn',
+            url: 'http://localhost:50997/api/WxOpen/OnLogin',
+            method: 'POST',
             data: {
                 code: code,
-                encryptedData: encryptedData,
-                iv: iv
+                rawData: res_user.rawData,
+                signature: res_user.signature,
+                encryptedData: res_user.encryptedData,
+                iv: res_user.iv
             },
             success: function (res) {
                 wx.setStorage({

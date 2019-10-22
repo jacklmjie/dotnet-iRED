@@ -1,6 +1,7 @@
-﻿using System;
+﻿using iRED.Model.Enums;
+using System;
 
-namespace iRED.ViewModel.JsonResult
+namespace iRED.ViewModel.JsonResult.Interface
 {
     [Serializable]
     public class WxJsonResult : IJsonResult

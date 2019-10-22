@@ -1,4 +1,4 @@
-﻿namespace iRED.ViewModel.JsonResult
+﻿namespace iRED.ViewModel.JsonResult.Interface
 {
     public interface IJsonResult
     {
