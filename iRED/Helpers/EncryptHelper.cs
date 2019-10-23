@@ -8,7 +8,7 @@ using Senparc.CO2NET.Helpers;
 using System.Web.Script.Serialization;
 #endif
 
-namespace iRED.ViewModel.Helpers
+namespace iRED.Helpers
 {
     /// <summary>
     /// 签名及加密帮助类
@@ -64,31 +64,60 @@ namespace iRED.ViewModel.Helpers
             aes.IV = Iv;
             var decrypt = aes.CreateDecryptor(aes.Key, aes.IV);
             byte[] xBuff = null;
+
+            //using (ICryptoTransform decrypt = aes.CreateDecryptor(aes.Key, aes.IV) /*aes.CreateDecryptor()*/)
+            //{
+            //    var src = Convert.FromBase64String(Input); 
+            //    byte[] dest = decrypt.TransformFinalBlock(src, 0, src.Length);
+            //    return dest;
+            //    //return Encoding.UTF8.GetString(dest);
+            //}
+
+
             try
             {
                 using (var ms = new MemoryStream())
                 {
                     using (var cs = new CryptoStream(ms, decrypt, CryptoStreamMode.Write))
                     {
+                        //cs.Read(decryptBytes, 0, decryptBytes.Length);
+                        //cs.Close();
+                        //ms.Close();
+
+                        //cs.FlushFinalBlock();//用于解决第二次获取小程序Session解密出错的情况
+
+
                         byte[] xXml = Convert.FromBase64String(Input);
                         byte[] msg = new byte[xXml.Length + 32 - xXml.Length % 32];
                         Array.Copy(xXml, msg, xXml.Length);
                         cs.Write(xXml, 0, xXml.Length);
                     }
+                    //cs.Dispose();
                     xBuff = decode2(ms.ToArray());
                 }
             }
             catch (System.Security.Cryptography.CryptographicException e)
             {
+                //Padding is invalid and cannot be removed.
+                Console.WriteLine("===== CryptographicException =====");
+
                 using (var ms = new MemoryStream())
                 {
+                    //cs 不自动释放，用于避免“Padding is invalid and cannot be removed”的错误    —— 2019.07.27 Jeffrey
                     var cs = new CryptoStream(ms, decrypt, CryptoStreamMode.Write);
                     {
+                        //cs.Read(decryptBytes, 0, decryptBytes.Length);
+                        //cs.Close();
+                        //ms.Close();
+
+                        //cs.FlushFinalBlock();//用于解决第二次获取小程序Session解密出错的情况
+
                         byte[] xXml = Convert.FromBase64String(Input);
                         byte[] msg = new byte[xXml.Length + 32 - xXml.Length % 32];
                         Array.Copy(xXml, msg, xXml.Length);
                         cs.Write(xXml, 0, xXml.Length);
                     }
+                    //cs.Dispose();
                     xBuff = decode2(ms.ToArray());
                 }
             }
@@ -119,7 +148,6 @@ namespace iRED.ViewModel.Helpers
         /// <returns></returns>
         public static string DecodeEncryptedData(string sessionKey, string encryptedData, string iv)
         {
-            var aesCipher = Convert.FromBase64String(encryptedData);
             var aesKey = Convert.FromBase64String(sessionKey);
             var aesIV = Convert.FromBase64String(iv);
 

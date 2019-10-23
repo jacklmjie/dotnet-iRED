@@ -13,19 +13,20 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
+    <PackageReference Include="Senparc.CO2NET" Version="1.0.102" />
   </ItemGroup>
 
 
   <ItemGroup>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="4.0.1" />
+    <PackageReference Include="WalkingTec.Mvvm.Mvc.Admin" Version="2.3.9" />
+    <PackageReference Include="WalkingTec.Mvvm.TagHelpers.LayUI" Version="2.3.9" />
  </ItemGroup>
 
   <ItemGroup>
    <ProjectReference Include="..\iRED.Model\iRED.Model.csproj" />
     <ProjectReference Include="..\iRED.DataAccess\iRED.DataAccess.csproj" />
     <ProjectReference Include="..\iRED.ViewModel\iRED.ViewModel.csproj" />
-    <ProjectReference Include="..\WalkingTec.Mvvm.Mvc\WalkingTec.Mvvm.Mvc.csproj" />
-    <ProjectReference Include="..\WalkingTec.Mvvm.TagHelpers.LayUI\WalkingTec.Mvvm.TagHelpers.LayUI.csproj" />
  </ItemGroup>
 
   <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>

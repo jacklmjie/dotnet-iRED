@@ -1,11 +1,11 @@
-﻿using Microsoft.IdentityModel.Tokens;
+﻿using iRED.Settings;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using WalkingTec.Mvvm.Core;
 
-namespace iRED.ViewModel.Helpers
+namespace iRED.Helpers
 {
     /// <summary>
     /// Jwt辅助操作类

@@ -5,6 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\WalkingTec.Mvvm.Core\WalkingTec.Mvvm.Core.csproj" />
+    <PackageReference Include="WalkingTec.Mvvm.Core" Version="2.3.9" />
   </ItemGroup>
 </Project>

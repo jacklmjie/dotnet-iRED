@@ -1,8 +1,10 @@
-﻿using iRED.Model;
-using iRED.ViewModel.Helpers;
+﻿using iRED.Helpers;
+using iRED.Model;
+using iRED.Settings;
 using iRED.ViewModel.JsonResult;
 using iRED.ViewModel.JsonResult.Request;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using System.Net.Http;
 using System.Security.Claims;
@@ -19,19 +21,23 @@ namespace iRED.Areas.Api.Controllers
     public class WxOpenApiController : BaseApiController
     {
         private readonly IHttpClientFactory _clientFactory;
-        private readonly Configs _configInfo;
-        public WxOpenApiController(IHttpClientFactory clientFactory)
+        private readonly JwtSettings _jwtSettings;
+        private readonly WxSettings _wxSettings;
+        public WxOpenApiController(IHttpClientFactory clientFactory,
+            IOptions<JwtSettings> jwtSettings,
+            IOptions<WxSettings> wxSettings)
         {
             _clientFactory = clientFactory;
-            _configInfo = GlobalServices.GetService<Configs>();
+            _jwtSettings = jwtSettings.Value;
+            _wxSettings = wxSettings.Value;
         }
 
         [ActionDescription("登录")]
         [HttpPost("OnLogin")]
         public async Task<IActionResult> OnLogin(WxLoginRequest req)
         {
-            var appId = _configInfo.Wx.AppID;
-            var appSecret = _configInfo.Wx.AppSecret;
+            var appId = _wxSettings.AppID;
+            var appSecret = _wxSettings.AppSecret;
             string urlFormat = "/sns/jscode2session?appid={0}&secret={1}&js_code={2}&grant_type={3}";
             var url = string.Format(urlFormat, appId, appSecret, req.code, "authorization_code");
             var request = new HttpRequestMessage(HttpMethod.Get, url);
@@ -79,7 +85,7 @@ namespace iRED.Areas.Api.Controllers
                 new Claim(ClaimTypes.Name, user.NickName)
             };
 
-            var token = JwtHelper.CreateToken(claims, _configInfo.Jwt);
+            var token = JwtHelper.CreateToken(claims, _jwtSettings);
             return token;
         }
     }
