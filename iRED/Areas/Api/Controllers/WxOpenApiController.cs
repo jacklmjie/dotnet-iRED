@@ -3,6 +3,7 @@ using iRED.Model;
 using iRED.Settings;
 using iRED.ViewModel.JsonResult;
 using iRED.ViewModel.JsonResult.Request;
+using iRED.ViewModel.Mp.WxUserVMs;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
@@ -53,23 +54,33 @@ namespace iRED.Areas.Api.Controllers
 
             var json = response.Content.ReadAsStringAsync().Result;
             var res = JsonConvert.DeserializeObject<JsCode2JsonResult>(json);
-            if (res.errcode == 0)
+            if (res.errcode != 0)
             {
-                var sessionKey = res.session_key;
-                var openId = res.openid;
-                if (!EncryptHelper.CheckSignature(sessionKey, req.rawData, req.signature))
-                {
-                    return BadRequest("签名校验失败");
-                }
-
-                var decodedEntity = EncryptHelper.DecodeUserInfoBySessionKey(sessionKey, req.encryptedData, req.iv);
-                if (decodedEntity != null && decodedEntity.CheckWatermark(appId))
-                {
-                    return Ok(openId);
-                }
-                return BadRequest("水印验证不通过");
+                return BadRequest(res.errcodeName);
             }
-            return BadRequest(res.errcodeName);
+
+            var sessionKey = res.session_key;
+            if (!EncryptHelper.CheckSignature(sessionKey, req.rawData, req.signature))
+            {
+                return BadRequest("签名校验失败");
+            }
+
+            var openId = res.openid;
+            var user = CreateVM<LoginVM>().DoLogin(openId);
+            if (user != null)
+            {
+                var token = CreateJwtToken(user);
+                return Ok(token);
+            }
+
+            var decodedUser = EncryptHelper.DecodeUserInfoBySessionKey(sessionKey, req.encryptedData, req.iv);
+            if (decodedUser != null && decodedUser.CheckWatermark(appId))
+            {
+                var wxUser = CreateVM<LoginVM>().DoAdd(decodedUser);
+                var token = CreateJwtToken(wxUser);
+                return Ok(token);
+            }
+            return BadRequest("水印验证不通过");
         }
 
         /// <summary>
@@ -82,7 +93,8 @@ namespace iRED.Areas.Api.Controllers
             Claim[] claims =
             {
                 new Claim(ClaimTypes.NameIdentifier, user.ID.ToString()),
-                new Claim(ClaimTypes.Name, user.NickName)
+                new Claim(ClaimTypes.Name, user.NickName),
+                new Claim(ClaimTypes.PrimarySid, user.OpenId),
             };
 
             var token = JwtHelper.CreateToken(claims, _jwtSettings);

@@ -29,7 +29,7 @@ Page({
                 if (res.code) {
                     self.getUserInfo(res.code);
                 } else {
-                    console.log('登录失败！' + res.errMsg);
+                    self.showMsg(res.errMsg);
                 }
             }
         });
@@ -56,19 +56,27 @@ Page({
                 iv: res_user.iv
             },
             success: function (res) {
-                wx.setStorage({
-                    key: "token",
-                    data: res.data
-                });
-                self.goIndex();
+                if (res.statusCode === 200) {
+                    wx.setStorage({
+                        key: "token",
+                        data: res.data
+                    });
+                    self.goIndex();
+                }
+                else {
+                    self.showMsg(res.data);
+                }
             },
             fail: function (res) {
-                wx.showModal({
-                    title: '登录失败',
-                    content: msg,
-                    showCancel: true
-                });
+                self.showMsg(res.errMsg);
             }
+        });
+    },
+    showMsg(msg) {
+        wx.showModal({
+            title: '登录失败',
+            content: msg,
+            showCancel: true
         });
     }
 });

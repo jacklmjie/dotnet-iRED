@@ -1,0 +1,18 @@
+﻿@model iRED.ViewModel.Mp.WxUserVMs.WxUserVM
+
+<wt:form vm="@Model">
+<wt:row items-per-row="ItemsPerRowEnum.Two">
+<wt:image class="layui-upload-img" field="Entity.AvatarUrl" url="@Model.Entity.AvatarUrl" width="300" />
+<wt:display field="Entity.OpenId" />
+<wt:display field="Entity.NickName" />
+<wt:display field="Entity.Gender" />
+<wt:display field="Entity.Country" />
+<wt:display field="Entity.Province" />
+<wt:display field="Entity.City" />
+<wt:display field="Entity.Language" />
+<wt:display field="Entity.CreateTime" />
+</wt:row>
+    <wt:row align=" AlignEnum.Right">
+        <wt:closebutton />
+    </wt:row>
+</wt:form>

@@ -4,6 +4,11 @@
     <TargetFramework>netcoreapp2.2</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="Migrations\20191023054018_user.cs" />
+    <Compile Remove="Migrations\20191023054018_user.Designer.cs" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <ProjectReference Include="..\iRED.Model\iRED.Model.csproj" />

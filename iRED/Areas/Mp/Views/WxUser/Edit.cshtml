@@ -1,0 +1,20 @@
+﻿@model iRED.ViewModel.Mp.WxUserVMs.WxUserVM
+
+<wt:form vm="@Model">
+<wt:row items-per-row="ItemsPerRowEnum.Two">
+<wt:textbox field="Entity.OpenId" />
+<wt:textbox field="Entity.NickName" />
+<wt:textbox field="Entity.AvatarUrl" />
+<wt:combobox field="Entity.Gender" />
+<wt:textbox field="Entity.Country" />
+<wt:textbox field="Entity.Province" />
+<wt:textbox field="Entity.City" />
+<wt:textbox field="Entity.Language" />
+<wt:datetime field="Entity.CreateTime" />
+</wt:row>
+    <wt:hidden field="Entity.ID" />
+    <wt:row align="AlignEnum.Right">
+        <wt:submitbutton />
+        <wt:closebutton />
+    </wt:row>
+</wt:form>

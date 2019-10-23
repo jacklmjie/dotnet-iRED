@@ -1,0 +1,10 @@
+﻿@model iRED.ViewModel.Mp.WxUserVMs.WxUserListVM
+
+<wt:searchpanel vm="@Model" reset-btn="true">
+<wt:row items-per-row="ItemsPerRowEnum.Three">
+<wt:textbox field="Searcher.OpenId" />
+<wt:textbox field="Searcher.NickName" />
+<wt:combobox field="Searcher.Gender" empty-text="全部" />
+</wt:row>
+</wt:searchpanel>
+<wt:grid vm="@Model" url="/Mp/WxUser/Search"/>
