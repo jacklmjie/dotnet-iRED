@@ -1,11 +1,33 @@
-﻿using iRED.Model.Enums;
-using System;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using WalkingTec.Mvvm.Core;
 
 namespace iRED.Model
 {
+    public enum SexEnum
+    {
+        未知 = 0,
+        男 = 1,
+        女 = 2
+    }
+
+    public enum LanguageEnum
+    {
+        /// <summary>
+        /// 英文
+        /// </summary>
+        en,
+        /// <summary>
+        /// 中文简体
+        /// </summary>
+        zh_CN,
+        /// <summary>
+        /// 中文繁体
+        /// </summary>
+        zh_TW
+    }
+
     [Table("WxUsers")]
     public class WxUser : TopBasePoco
     {
@@ -23,7 +45,7 @@ namespace iRED.Model
         public string AvatarUrl { get; set; }
 
         [Display(Name = "用户性别")]
-        public WeixinSex Gender { get; set; }
+        public SexEnum Gender { get; set; }
 
         [Display(Name = "用户所在国家")]
         public string Country { get; set; }
@@ -35,7 +57,7 @@ namespace iRED.Model
         public string City { get; set; }
 
         [Display(Name = "用户所用语言")]
-        public Language Language { get; set; }
+        public LanguageEnum Language { get; set; }
 
         [Display(Name = "创建时间")]
         public DateTime? CreateTime { get; set; }
