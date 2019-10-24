@@ -12,6 +12,9 @@ namespace iRED.Model
         女 = 2
     }
 
+    /// <summary>
+    /// 微信用户
+    /// </summary>
     [Table("WxUsers")]
     public class WxUser : TopBasePoco
     {
@@ -44,6 +47,6 @@ namespace iRED.Model
         public string Language { get; set; }
 
         [Display(Name = "创建时间")]
-        public DateTime? CreateTime { get; set; }
+        public DateTime CreateTime { get; set; }
     }
 }
