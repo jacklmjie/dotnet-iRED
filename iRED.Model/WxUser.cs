@@ -13,7 +13,7 @@ namespace iRED.Model
     }
 
     /// <summary>
-    /// 微信用户
+    /// 用户
     /// </summary>
     [Table("WxUsers")]
     public class WxUser : TopBasePoco
