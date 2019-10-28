@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace iRED.DataAccess.Migrations
@@ -128,6 +129,27 @@ namespace iRED.DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "WxUsers",
+                columns: table => new
+                {
+                    ID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    OpenId = table.Column<string>(nullable: true),
+                    NickName = table.Column<string>(nullable: true),
+                    AvatarUrl = table.Column<string>(nullable: true),
+                    Gender = table.Column<int>(nullable: false),
+                    Country = table.Column<string>(nullable: true),
+                    Province = table.Column<string>(nullable: true),
+                    City = table.Column<string>(nullable: true),
+                    Language = table.Column<string>(nullable: true),
+                    CreateTime = table.Column<DateTime>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_WxUsers", x => x.ID);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "FrameworkUsers",
                 columns: table => new
                 {
@@ -154,6 +176,34 @@ namespace iRED.DataAccess.Migrations
                     table.ForeignKey(
                         name: "FK_FrameworkUsers_FileAttachments_PhotoId",
                         column: x => x.PhotoId,
+                        principalTable: "FileAttachments",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "WxActivitys",
+                columns: table => new
+                {
+                    ID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    CreateTime = table.Column<DateTime>(nullable: true),
+                    CreateBy = table.Column<string>(maxLength: 50, nullable: true),
+                    UpdateTime = table.Column<DateTime>(nullable: true),
+                    UpdateBy = table.Column<string>(maxLength: 50, nullable: true),
+                    IsValid = table.Column<bool>(nullable: false),
+                    Name = table.Column<string>(maxLength: 50, nullable: false),
+                    Description = table.Column<string>(nullable: false),
+                    PictureId = table.Column<Guid>(nullable: true),
+                    BeginTime = table.Column<DateTime>(nullable: false),
+                    EndTime = table.Column<DateTime>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_WxActivitys", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_WxActivitys_FileAttachments_PictureId",
+                        column: x => x.PictureId,
                         principalTable: "FileAttachments",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Restrict);
@@ -466,6 +516,11 @@ namespace iRED.DataAccess.Migrations
                 name: "IX_SearchConditions_UserId",
                 table: "SearchConditions",
                 column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_WxActivitys_PictureId",
+                table: "WxActivitys",
+                column: "PictureId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -490,6 +545,12 @@ namespace iRED.DataAccess.Migrations
 
             migrationBuilder.DropTable(
                 name: "SearchConditions");
+
+            migrationBuilder.DropTable(
+                name: "WxActivitys");
+
+            migrationBuilder.DropTable(
+                name: "WxUsers");
 
             migrationBuilder.DropTable(
                 name: "FrameworkModules");

@@ -14,6 +14,11 @@ namespace iRED.Controllers
         {
             LoginVM vm = CreateVM<LoginVM>();
             vm.Redirect = HttpContext.Request.Query["rd"];
+            if (ConfigInfo.IsQuickDebug == true)
+            {
+                vm.ITCode = "admin";
+                vm.Password = "000000";
+            }
             return View(vm);
         }
 

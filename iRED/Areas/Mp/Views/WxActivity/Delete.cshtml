@@ -1,0 +1,17 @@
+﻿@model iRED.ViewModel.Mp.WxActivityVMs.WxActivityVM
+
+<wt:form vm="@Model">
+	<wt:quote>确定要删除这条数据么：</wt:quote>
+<wt:row items-per-row="ItemsPerRowEnum.One">
+<wt:display field="Entity.Name" />
+<wt:textarea field="Entity.Description" disabled="true"/>
+<wt:display field="Entity.PictureId" />
+<wt:display field="Entity.BeginTime" />
+<wt:display field="Entity.EndTime" />
+</wt:row>
+    <wt:hidden field="Entity.ID" />
+    <wt:row align=" AlignEnum.Right">
+        <wt:submitbutton theme=" ButtonThemeEnum.Warm" text="删除"/>
+        <wt:closebutton />
+    </wt:row>
+</wt:form>

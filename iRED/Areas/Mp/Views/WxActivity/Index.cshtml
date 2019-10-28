@@ -1,0 +1,10 @@
+﻿@model iRED.ViewModel.Mp.WxActivityVMs.WxActivityListVM
+
+<wt:searchpanel vm="@Model" reset-btn="true">
+<wt:row items-per-row="ItemsPerRowEnum.Three">
+<wt:textbox field="Searcher.Name" />
+<wt:datetime field="Searcher.BeginTime" />
+<wt:datetime field="Searcher.EndTime" />
+</wt:row>
+</wt:searchpanel>
+<wt:grid vm="@Model" url="/Mp/WxActivity/Search"/>

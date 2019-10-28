@@ -12,6 +12,7 @@ namespace iRED.DataAccess
         {
         }
         public DbSet<WxUser> WxUser { get; set; }
+        public DbSet<WxActivity> WxActivity { get; set; }
     }
 
     /// <summary>

@@ -10,7 +10,7 @@ using iRED.DataAccess;
 namespace iRED.DataAccess.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20191011023404_InitialCreate")]
+    [Migration("20191028100736_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -562,6 +562,73 @@ namespace iRED.DataAccess.Migrations
                     b.ToTable("SearchConditions");
                 });
 
+            modelBuilder.Entity("iRED.Model.WxActivity", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("BeginTime");
+
+                    b.Property<string>("CreateBy")
+                        .HasMaxLength(50);
+
+                    b.Property<DateTime?>("CreateTime");
+
+                    b.Property<string>("Description")
+                        .IsRequired();
+
+                    b.Property<DateTime>("EndTime");
+
+                    b.Property<bool>("IsValid");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50);
+
+                    b.Property<Guid?>("PictureId");
+
+                    b.Property<string>("UpdateBy")
+                        .HasMaxLength(50);
+
+                    b.Property<DateTime?>("UpdateTime");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("PictureId");
+
+                    b.ToTable("WxActivitys");
+                });
+
+            modelBuilder.Entity("iRED.Model.WxUser", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("AvatarUrl");
+
+                    b.Property<string>("City");
+
+                    b.Property<string>("Country");
+
+                    b.Property<DateTime>("CreateTime");
+
+                    b.Property<int>("Gender");
+
+                    b.Property<string>("Language");
+
+                    b.Property<string>("NickName");
+
+                    b.Property<string>("OpenId");
+
+                    b.Property<string>("Province");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("WxUsers");
+                });
+
             modelBuilder.Entity("WalkingTec.Mvvm.Core.DataPrivilege", b =>
                 {
                     b.HasOne("WalkingTec.Mvvm.Core.FrameworkDomain", "Domain")
@@ -649,6 +716,13 @@ namespace iRED.DataAccess.Migrations
                         .WithMany("SearchConditions")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("iRED.Model.WxActivity", b =>
+                {
+                    b.HasOne("WalkingTec.Mvvm.Core.FileAttachment", "Picture")
+                        .WithMany()
+                        .HasForeignKey("PictureId");
                 });
 #pragma warning restore 612, 618
         }

@@ -1,0 +1,15 @@
+﻿@model iRED.ViewModel.Mp.WxActivityVMs.WxActivityVM
+
+<wt:form vm="@Model">
+<wt:row items-per-row="ItemsPerRowEnum.One">
+<wt:textbox field="Entity.Name" />
+<wt:textarea field="Entity.Description" />
+<wt:upload field="Entity.PictureId" />
+<wt:datetime field="Entity.BeginTime" />
+<wt:datetime field="Entity.EndTime" />
+</wt:row>
+    <wt:row align="AlignEnum.Right">
+        <wt:submitbutton />
+        <wt:closebutton />
+    </wt:row>
+</wt:form>

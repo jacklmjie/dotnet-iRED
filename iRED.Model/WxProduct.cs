@@ -34,10 +34,6 @@ namespace iRED.Model
         [Required(ErrorMessage = "{0}是必填项")]
         public string Description { get; set; }
 
-        [Display(Name = "库存")]
-        [Required(ErrorMessage = "{0}是必填项")]
-        public int Stock { get; set; }
-
         [Display(Name = "可用库存")]
         [Required(ErrorMessage = "{0}是必填项")]
         public int AvailableStock { get; set; }
@@ -48,41 +44,5 @@ namespace iRED.Model
 
         [Display(Name = "所属场馆")]
         public WxVenue WxVenue { get; set; }
-
-        /// <summary>
-        /// 增加库存
-        /// </summary>
-        /// <param name="quantity"></param>
-        public void AddStock(int quantity)
-        {
-            if (quantity <= 0)
-            {
-                throw new Exception($"不能小于0");
-            }
-            this.Stock += quantity;
-            this.AvailableStock += quantity;
-        }
-
-        /// <summary>
-        /// 减少库存
-        /// </summary>
-        /// <param name="quantity"></param>
-        public void RemoveStock(int quantity)
-        {
-            if (AvailableStock == 0)
-            {
-                throw new Exception($"可用库存为0");
-            }
-
-            if (quantity <= 0)
-            {
-                throw new Exception($"不能小于0");
-            }
-
-            int removed = Math.Min(quantity, this.AvailableStock);
-
-            this.Stock -= removed;
-            this.AvailableStock -= removed;
-        }
     }
 }

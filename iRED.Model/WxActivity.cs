@@ -9,7 +9,7 @@ namespace iRED.Model
     /// 活动
     /// </summary>
     [Table("WxActivitys")]
-    public class WxActivity : BasePoco
+    public class WxActivity : PersistPoco
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -24,12 +24,18 @@ namespace iRED.Model
         [Required(ErrorMessage = "{0}是必填项")]
         public string Description { get; set; }
 
+        [Display(Name = "图片")]
+        public Guid? PictureId { get; set; }
+
+        [Display(Name = "图片")]
+        public FileAttachment Picture { get; set; }
+
         [Display(Name = "开始时间")]
         [Required()]
-        public DateTime BeginTime { get; set; }
+        public DateTime? BeginTime { get; set; }
 
         [Display(Name = "结束时间")]
         [Required()]
-        public DateTime EndTime { get; set; }
+        public DateTime? EndTime { get; set; }
     }
 }

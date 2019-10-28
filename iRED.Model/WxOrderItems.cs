@@ -8,7 +8,7 @@ namespace iRED.Model
     /// 订单项
     /// </summary>
     [Table("WxOrderItems")]
-    public class WxOrderItem : BasePoco
+    public class WxOrderItem : TopBasePoco
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
