@@ -43,7 +43,7 @@ namespace iRED.Model
         [Display(Name = "用户Id")]
         public int UserId { get; set; }
 
-        [Display(Name = "用户")]
+        [Display(Name = "用户信息")]
         public WxUser User { get; set; }
 
         [Display(Name = "收获地址")]

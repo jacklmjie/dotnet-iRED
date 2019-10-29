@@ -1,0 +1,20 @@
+﻿@model iRED.ViewModel.Mp.WxOrderVMs.WxOrderVM
+
+<wt:form vm="@Model">
+<wt:row items-per-row="ItemsPerRowEnum.Two">
+<wt:textbox field="Entity.OrderNumber" />
+<wt:textbox field="Entity.OrderTotal" />
+<wt:combobox field="Entity.UserId" items="AllUsers"/>
+<wt:textbox field="Entity.UserAddress" />
+<wt:textbox field="Entity.UserPhone" />
+<wt:datetime field="Entity.CreateTime" />
+<wt:combobox field="Entity.OrderStatus" />
+<wt:combobox field="Entity.PayStatus" />
+<wt:combobox field="Entity.GoodsStatus" />
+</wt:row>
+    <wt:hidden field="Entity.ID" />
+    <wt:row align="AlignEnum.Right">
+        <wt:submitbutton />
+        <wt:closebutton />
+    </wt:row>
+</wt:form>

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using WalkingTec.Mvvm.Core;
 
@@ -21,7 +22,7 @@ namespace iRED.Model
         public WxProduct Product { get; set; }
 
         [Display(Name = "产品名称")]
-        public string ProductName { get; set; }
+        public int ProductName { get; set; }
 
         [Display(Name = "产品单价")]
         public decimal UnitPrice { get; set; }
@@ -29,10 +30,10 @@ namespace iRED.Model
         [Display(Name = "产品数量")]
         public int Units { get; set; }
 
-        [Display(Name = "产品图片")]
-        public string PictureUrl { get; set; }
-
-        [Display(Name = "订单Id")]
+        [Display(Name = "订单")]
         public int OrderId { get; set; }
+
+        [Display(Name = "订单")]
+        public WxOrder Order { get; set; }
     }
 }

@@ -15,6 +15,8 @@ namespace iRED.DataAccess
         public DbSet<WxActivity> WxActivity { get; set; }
         public DbSet<WxVenue> WxVenue { get; set; }
         public DbSet<WxProduct> WxProduct { get; set; }
+        public DbSet<WxOrder> WxOrder { get; set; }
+        public DbSet<WxOrderItem> WxOrderItem { get; set; }
     }
 
     /// <summary>

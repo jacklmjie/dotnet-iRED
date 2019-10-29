@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using iRED.DataAccess;
 
 namespace iRED.DataAccess.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20191029082617_WxOrder2")]
+    partial class WxOrder2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -647,11 +649,11 @@ namespace iRED.DataAccess.Migrations
 
                     b.Property<int>("Units");
 
+                    b.Property<int?>("WxOrderID");
+
                     b.HasKey("ID");
 
-                    b.HasIndex("OrderId");
-
-                    b.HasIndex("ProductId");
+                    b.HasIndex("WxOrderID");
 
                     b.ToTable("WxOrderItems");
                 });
@@ -870,15 +872,9 @@ namespace iRED.DataAccess.Migrations
 
             modelBuilder.Entity("iRED.Model.WxOrderItem", b =>
                 {
-                    b.HasOne("iRED.Model.WxOrder", "Order")
+                    b.HasOne("iRED.Model.WxOrder")
                         .WithMany("OrderItems")
-                        .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("iRED.Model.WxProduct", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("WxOrderID");
                 });
 
             modelBuilder.Entity("iRED.Model.WxProduct", b =>

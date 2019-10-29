@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using iRED.DataAccess;
 
 namespace iRED.DataAccess.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20191029060450_WxOrderItems")]
+    partial class WxOrderItems
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -637,11 +639,7 @@ namespace iRED.DataAccess.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("OrderId");
-
                     b.Property<int>("ProductId");
-
-                    b.Property<int>("ProductName");
 
                     b.Property<decimal>("UnitPrice");
 
@@ -649,11 +647,29 @@ namespace iRED.DataAccess.Migrations
 
                     b.HasKey("ID");
 
-                    b.HasIndex("OrderId");
-
                     b.HasIndex("ProductId");
 
                     b.ToTable("WxOrderItems");
+                });
+
+            modelBuilder.Entity("iRED.Model.WxOrderMiddle", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("OrderId");
+
+                    b.Property<int>("OrderItemId");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("OrderId");
+
+                    b.HasIndex("OrderItemId")
+                        .IsUnique();
+
+                    b.ToTable("WxOrderMiddle");
                 });
 
             modelBuilder.Entity("iRED.Model.WxProduct", b =>
@@ -870,14 +886,22 @@ namespace iRED.DataAccess.Migrations
 
             modelBuilder.Entity("iRED.Model.WxOrderItem", b =>
                 {
+                    b.HasOne("iRED.Model.WxProduct", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("iRED.Model.WxOrderMiddle", b =>
+                {
                     b.HasOne("iRED.Model.WxOrder", "Order")
                         .WithMany("OrderItems")
                         .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("iRED.Model.WxProduct", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId")
+                    b.HasOne("iRED.Model.WxOrderItem", "OrderItem")
+                        .WithOne("Order")
+                        .HasForeignKey("iRED.Model.WxOrderMiddle", "OrderItemId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
