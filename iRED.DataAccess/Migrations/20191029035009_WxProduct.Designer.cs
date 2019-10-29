@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using iRED.DataAccess;
 
 namespace iRED.DataAccess.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20191029035009_WxProduct")]
+    partial class WxProduct
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -606,8 +608,7 @@ namespace iRED.DataAccess.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("AvailableStock")
-                        .IsRequired();
+                    b.Property<int>("AvailableStock");
 
                     b.Property<string>("CreateBy")
                         .HasMaxLength(50);
@@ -625,8 +626,7 @@ namespace iRED.DataAccess.Migrations
 
                     b.Property<Guid?>("PictureId");
 
-                    b.Property<decimal?>("Price")
-                        .IsRequired();
+                    b.Property<decimal>("Price");
 
                     b.Property<string>("UpdateBy")
                         .HasMaxLength(50);

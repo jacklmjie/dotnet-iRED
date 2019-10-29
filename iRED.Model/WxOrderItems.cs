@@ -14,8 +14,11 @@ namespace iRED.Model
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public new int ID { get; set; }
 
-        [Display(Name = "产品Id")]
+        [Display(Name = "产品")]
         public int ProductId { get; set; }
+
+        [Display(Name = "产品")]
+        public WxProduct Product { get; set; }
 
         [Display(Name = "产品名称")]
         public string ProductName { get; set; }

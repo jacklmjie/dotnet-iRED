@@ -20,29 +20,29 @@ namespace iRED.Model
         [Required(ErrorMessage = "{0}是必填项")]
         public string Name { get; set; }
 
+        [Display(Name = "所属场馆")]
+        [Required(ErrorMessage = "{0}是必填项")]
+        public int? VenueId { get; set; }
+
+        [Display(Name = "所属场馆")]
+        public WxVenue Venue { get; set; }
+
         [Display(Name = "图片")]
-        public int PictureId { get; set; }
+        public Guid? PictureId { get; set; }
 
         [Display(Name = "图片")]
         public FileAttachment Picture { get; set; }
 
         [Display(Name = "价格")]
         [Required(ErrorMessage = "{0}是必填项")]
-        public decimal Price { get; set; }
+        public decimal? Price { get; set; } 
+
+        [Display(Name = "可用库存")]
+        [Required(ErrorMessage = "{0}是必填项")]
+        public int? AvailableStock { get; set; }
 
         [Display(Name = "描述")]
         [Required(ErrorMessage = "{0}是必填项")]
         public string Description { get; set; }
-
-        [Display(Name = "可用库存")]
-        [Required(ErrorMessage = "{0}是必填项")]
-        public int AvailableStock { get; set; }
-
-        [Display(Name = "所属场馆")]
-        [Required()]
-        public int? WxVenueId { get; set; }
-
-        [Display(Name = "所属场馆")]
-        public WxVenue WxVenue { get; set; }
     }
 }

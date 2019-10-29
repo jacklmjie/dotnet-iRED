@@ -1,0 +1,16 @@
+﻿@model iRED.ViewModel.Mp.WxProductVMs.WxProductVM
+
+<wt:form vm="@Model">
+<wt:row items-per-row="ItemsPerRowEnum.One">
+<wt:textbox field="Entity.Name" />
+<wt:combobox field="Entity.VenueId" items="AllVenues"/>
+<wt:upload field="Entity.PictureId" />
+<wt:textbox field="Entity.Price" />
+<wt:textbox field="Entity.AvailableStock" />
+<wt:textarea field="Entity.Description" />
+</wt:row>
+    <wt:row align="AlignEnum.Right">
+        <wt:submitbutton />
+        <wt:closebutton />
+    </wt:row>
+</wt:form>

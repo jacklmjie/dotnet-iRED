@@ -1,0 +1,8 @@
+﻿@model iRED.ViewModel.Mp.WxVenueVMs.WxVenueListVM
+
+<wt:searchpanel vm="@Model" reset-btn="true">
+<wt:row items-per-row="ItemsPerRowEnum.Three">
+<wt:textbox field="Searcher.Name" />
+</wt:row>
+</wt:searchpanel>
+<wt:grid vm="@Model" url="/Mp/WxVenue/Search"/>

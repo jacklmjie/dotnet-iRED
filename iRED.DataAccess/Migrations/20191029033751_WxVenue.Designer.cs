@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using iRED.DataAccess;
 
 namespace iRED.DataAccess.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20191029033751_WxVenue")]
+    partial class WxVenue
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -600,51 +602,6 @@ namespace iRED.DataAccess.Migrations
                     b.ToTable("WxActivitys");
                 });
 
-            modelBuilder.Entity("iRED.Model.WxProduct", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int?>("AvailableStock")
-                        .IsRequired();
-
-                    b.Property<string>("CreateBy")
-                        .HasMaxLength(50);
-
-                    b.Property<DateTime?>("CreateTime");
-
-                    b.Property<string>("Description")
-                        .IsRequired();
-
-                    b.Property<bool>("IsValid");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(50);
-
-                    b.Property<Guid?>("PictureId");
-
-                    b.Property<decimal?>("Price")
-                        .IsRequired();
-
-                    b.Property<string>("UpdateBy")
-                        .HasMaxLength(50);
-
-                    b.Property<DateTime?>("UpdateTime");
-
-                    b.Property<int?>("VenueId")
-                        .IsRequired();
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("PictureId");
-
-                    b.HasIndex("VenueId");
-
-                    b.ToTable("WxProducts");
-                });
-
             modelBuilder.Entity("iRED.Model.WxUser", b =>
                 {
                     b.Property<int>("ID")
@@ -802,18 +759,6 @@ namespace iRED.DataAccess.Migrations
                     b.HasOne("WalkingTec.Mvvm.Core.FileAttachment", "Picture")
                         .WithMany()
                         .HasForeignKey("PictureId");
-                });
-
-            modelBuilder.Entity("iRED.Model.WxProduct", b =>
-                {
-                    b.HasOne("WalkingTec.Mvvm.Core.FileAttachment", "Picture")
-                        .WithMany()
-                        .HasForeignKey("PictureId");
-
-                    b.HasOne("iRED.Model.WxVenue", "Venue")
-                        .WithMany()
-                        .HasForeignKey("VenueId")
-                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("iRED.Model.WxVenue", b =>

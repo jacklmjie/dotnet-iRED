@@ -31,11 +31,11 @@ namespace iRED.Model
         public FileAttachment Picture { get; set; }
 
         [Display(Name = "开始时间")]
-        [Required()]
+        [Required(ErrorMessage = "{0}是必填项")]
         public DateTime? BeginTime { get; set; }
 
         [Display(Name = "结束时间")]
-        [Required()]
+        [Required(ErrorMessage = "{0}是必填项")]
         public DateTime? EndTime { get; set; }
     }
 }
