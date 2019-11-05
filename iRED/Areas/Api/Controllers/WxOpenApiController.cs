@@ -4,9 +4,12 @@ using iRED.Settings;
 using iRED.ViewModel.JsonResult;
 using iRED.ViewModel.JsonResult.Request;
 using iRED.ViewModel.Mp.WxUserVMs;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
+using System.Linq;
 using System.Net.Http;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -93,12 +96,23 @@ namespace iRED.Areas.Api.Controllers
             Claim[] claims =
             {
                 new Claim(ClaimTypes.NameIdentifier, user.ID.ToString()),
-                new Claim(ClaimTypes.Name, user.NickName),
-                new Claim(ClaimTypes.PrimarySid, user.OpenId),
+                new Claim(ClaimTypes.Name, user.NickName)
             };
 
             var token = JwtHelper.CreateToken(claims, _jwtSettings);
             return token;
+        }
+
+        /// <summary>
+        /// 获取用户信息
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("user-info")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        public ActionResult GetUserInfo()
+        {
+            var claimsIdentity = User.Identity as ClaimsIdentity;
+            return Ok(claimsIdentity.Claims.ToList().Select(r => new { r.Type, r.Value }));
         }
     }
 }
